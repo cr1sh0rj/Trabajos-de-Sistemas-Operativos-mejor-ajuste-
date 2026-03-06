@@ -1,0 +1,93 @@
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    text-align:center;
+}
+
+h1{
+    margin:20px;
+}
+
+.container{
+    display:flex;
+    justify-content:space-around;
+    margin-top:20px;
+}
+
+.memory-container, .queue-container{
+    border-radius: 8px;
+    background-color: purple;
+}
+
+#memory, #queue{
+    width:300px;
+    min-height:400px;
+    
+    padding:10px;
+    border:2px solid #333;
+    background:white;
+    background-color: yellow;
+    
+}
+
+.block{
+    /* position:relative; */
+    padding: 1rem 0;
+    border:1px solid #999;
+    /* background:#ddd; */
+    /* margin:5px 0; */
+    background: blue;
+
+    transition:0.3s;
+}
+
+.block.used{
+    background:#4caf50;
+    color:white;
+}
+
+
+
+.fragment{
+    background:#ff5252;
+    /* position:absolute; */
+    bottom:0;
+    width:100%;
+}
+
+/* .memory-row{
+    display:flex;
+    gap:8px;
+} */
+
+.delete-btn{
+    background:#e53935;
+}
+
+.delete-btn:hover{
+    background:#c62828;
+}
+
+.process{
+    background:#2196f3;
+    color:white;
+    padding:5px;
+    margin:5px 0;
+}
+
+input{
+    padding:5px;
+    margin:5px;
+}
+
+button{
+    padding:6px 12px;
+    border:none;
+    background:#333;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#555;
+}
