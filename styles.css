@@ -1,3 +1,10 @@
+/* CSS Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
     font-family: Arial, sans-serif;
     background:#f4f6f9;
@@ -8,6 +15,26 @@ h1{
     margin:20px;
 }
 
+
+/* Data input */
+input{
+    padding:5px;
+    margin:5px;
+}
+
+#add-process-btn{
+    padding:6px 12px;
+    border:none;
+    background:#333;
+    color:white;
+    cursor:pointer;
+}
+
+#add-process-btn:hover{
+    background:#555;
+}
+
+
 .container{
     display:flex;
     justify-content:space-around;
@@ -16,78 +43,45 @@ h1{
 
 .memory-container, .queue-container{
     border-radius: 8px;
-    background-color: purple;
+    background-color: rgb(197, 193, 193);
+    padding: 1rem;
+
+    h2{
+        margin-bottom: 1rem;
+    }
 }
 
 #memory, #queue{
     width:300px;
-    min-height:400px;
     
-    padding:10px;
+    background-color:white;
     border:2px solid #333;
-    background:white;
-    background-color: yellow;
+    padding:10px;
     
 }
 
-.block{
-    /* position:relative; */
-    padding: 1rem 0;
-    border:1px solid #999;
-    /* background:#ddd; */
-    /* margin:5px 0; */
-    background: blue;
 
-    transition:0.3s;
+/* Below refers to dynamic styles with JS */
+
+.memory-row{
+    background-color: #d0d0d0;
+    color: black;
+    margin: 4px 0 4px 0;
 }
 
-.block.used{
+.used{
     background:#4caf50;
     color:white;
 }
 
-
-
-.fragment{
-    background:#ff5252;
-    /* position:absolute; */
-    bottom:0;
-    width:100%;
-}
-
-/* .memory-row{
-    display:flex;
-    gap:8px;
-} */
-
 .delete-btn{
     background:#e53935;
+    cursor:pointer;
 }
 
-.delete-btn:hover{
-    background:#c62828;
-}
-
-.process{
+/* .process{
     background:#2196f3;
     color:white;
     padding:5px;
     margin:5px 0;
-}
-
-input{
-    padding:5px;
-    margin:5px;
-}
-
-button{
-    padding:6px 12px;
-    border:none;
-    background:#333;
-    color:white;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#555;
-}
+} */

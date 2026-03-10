@@ -1,80 +1,97 @@
+// Default memory blocks
 let memoryBlocks = [
     {size:100, used:false, process:null},
     {size:500, used:false, process:null},
     {size:200, used:false, process:null},
     {size:300, used:false, process:null},
-    {size:600, used:false, process:null}
+    {size:600, used:false, process:null},
+    {size:1200, used:false, process:null}
 ];
 
+/* Process queue */
 let processes = [];
 
-function render(){
-    const memoryDiv = document.getElementById("memory");
-    const queueDiv = document.getElementById("queue");
+function renderHTML(){
+    const memory = document.getElementById("memory");
+    const queue = document.getElementById("queue");
 
-    memoryDiv.innerHTML = "";
-    queueDiv.innerHTML="";
+    memory.innerHTML = "";
+    queue.innerHTML="";
 
+    // Blocks rendering
     memoryBlocks.forEach((block,index)=>{
 
         const row = document.createElement("div"); 
-        row.classList.add("memory-row"); 
-        // Clase memory-row no se está usando en el css
+        row.classList.add("memory-row");
 
-        const div = document.createElement("div");
-        div.classList.add("block");
+        const fragElement = document.createElement("div");
+        fragElement.classList.add("fragment");
+        
+        const fragText = document.createElement("div");
+        fragText.classList.add("frag-text");
 
         if(block.used){
-            div.classList.add("used");
+            row.classList.add("used");
 
             let frag = block.size - block.process.size;
+            
+            row.appendChild(fragElement);
 
-            div.innerHTML = ` ${block.process.name} (${block.process.size}) <br>Fragmentación: ${frag} `;
+            fragText.innerHTML = ` ${block.process.name} (${block.process.size}) Fragmentación: ${frag} `;
+            
+            fragElement.appendChild(fragText);
 
-            if(frag > 0){
-                const fragDiv = document.createElement("div");
-                fragDiv.classList.add("fragment");
-                
-                fragDiv.style.height = (frag/block.size) * 100 + "%";
-                div.appendChild(fragDiv);
-            }
+            // Delete button
+            const deleteBtn = document.createElement("button");
+            deleteBtn.innerText = "Eliminar";
+            deleteBtn.classList.add("delete-btn");
+            deleteBtn.onclick = () => removeProcess(index);
 
+            fragElement.appendChild(deleteBtn);
+
+            // Dynamic height based on fragmentation percentage
+            // fragElement.style.height = (frag / block.size) * 100 + "%";
+        
         } else {
-            div.innerHTML = "Libre: " + block.size;
+            fragText.innerHTML = "Disponible: " + block.size;
+
+            row.appendChild(fragElement);
+            fragElement.appendChild(fragText);
+
         }
+        
+        // Set height based on block size (for better visualization)
+        let height =
+            block.size > 600 ? 350 :
+            block.size > 400 ? block.size / 2 :
+            block.size;
 
-        div.style.height = block.size/3 + "px"; // CSS Height
-        row.appendChild(div);
+        fragElement.style.height = height + "px";
 
-        if(block.used){
-                const btn = document.createElement("button");
-                btn.innerText = "Eliminar";
-            btn.classList.add("delete-btn");
-                btn.onclick = () => removeProcess(index);
-
-                row.appendChild(btn);
-	}
-
-	memoryDiv.appendChild(row);
+        fragElement.style.height = height + "px";
+    	
+    
+        memory.appendChild(row);
     });
 
-    processes.forEach(p=>{
-        const div = document.createElement("div");
-        div.classList.add("process");
-        div.innerHTML = p.name + " (" + p.size + ")";
-        queueDiv.appendChild(div);
+    processes.forEach(p => {
+        const process = document.createElement("div");
+        process.classList.add("process");
+        process.innerHTML = p.name + " (" + p.size + ")";
+        queue.appendChild(process);
     });
 }
 
+// TO DO: Verify user don't enter negative numbers
 function addProcess(){
-    const name = document.getElementById("pname").value;
-    const size = parseInt(document.getElementById("psize").value);
+    const name = document.getElementById("process-name").value;
+    const size = parseInt(document.getElementById("process-size").value);
 
     if(!name || !size) return;
 
     processes.push({name, size});
-    document.getElementById("pname").value="";
-    document.getElementById("psize").value="";
+    document.getElementById("process-name").value="";
+    document.getElementById("process-size").value="";
 
     autoAllocate();
 }
@@ -104,7 +121,7 @@ function autoAllocate(){
         return true;
     });
 
-    render();
+    renderHTML();
 }
 
 function removeProcess(index){
@@ -113,4 +130,4 @@ function removeProcess(index){
     autoAllocate();
 }
 
-render();
+renderHTML();
