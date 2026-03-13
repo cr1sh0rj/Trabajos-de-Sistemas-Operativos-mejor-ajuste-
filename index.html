@@ -2,13 +2,28 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Simulador Mejor Ajuste Dinámico</title>
+<title>Simulador de Memoria</title>
 <link rel="stylesheet" href="./styles.css">
 <script defer src="./main.js"></script>
 </head>
 
 <body>
-    <h1>Simulación Mejor Ajuste</h1>
+    <h1>Simulación de memoria primer y mejor ajuste</h1>
+    <div class="options-panel">
+
+    <h3>Algoritmo de Asignación</h3>
+
+    <label>
+        <input type="radio" name="algorithm" value="best" checked>
+        Mejor Ajuste 
+    </label>
+
+    <label>
+        <input type="radio" name="algorithm" value="first">
+        Primer Ajuste 
+    </label>
+
+</div>
 
     <div class="input-container">
         <input type="text" id="process-name" placeholder="Nombre proceso">

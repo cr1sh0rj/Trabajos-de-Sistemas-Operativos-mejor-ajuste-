@@ -1,4 +1,17 @@
 // Default memory blocks
+let algorithm = "best";
+document.addEventListener("DOMContentLoaded", () => {
+
+    const radios = document.querySelectorAll('input[name="algorithm"]');
+
+    radios.forEach(radio => {
+        radio.addEventListener("change", (e)=>{
+            algorithm = e.target.value;
+        });
+    });
+
+});
+
 let memoryBlocks = [
     {size:100, used:false, process:null},
     {size:500, used:false, process:null},
@@ -84,12 +97,24 @@ function renderHTML(){
 
 // TO DO: Verify user don't enter negative numbers
 function addProcess(){
-    const name = document.getElementById("process-name").value;
+
+    const name = document.getElementById("process-name").value.trim();
     const size = parseInt(document.getElementById("process-size").value);
 
-    if(!name || !size) return;
+    // Validación nombre
+    if(!name){
+        alert("Ingrese un nombre de proceso");
+        return;
+    }
+
+    // Validación tamaño
+    if(isNaN(size) || size <= 0){
+        alert("El tamaño del proceso debe ser un número mayor que 0");
+        return;
+    }
 
     processes.push({name, size});
+
     document.getElementById("process-name").value="";
     document.getElementById("process-size").value="";
 
@@ -97,28 +122,55 @@ function addProcess(){
 }
 
 function autoAllocate(){
+
     processes = processes.filter(process => {
 
-        let bestIndex = -1;
-        let minDiff = Infinity;
+        let selectedIndex = -1;
 
-        memoryBlocks.forEach((block,index)=>{
-            if(!block.used && block.size >= process.size){
-                let diff = block.size - process.size;
-                if(diff < minDiff){
-                    minDiff = diff;
-                    bestIndex = index;
+        if(algorithm === "best"){
+
+            let minDiff = Infinity;
+
+            memoryBlocks.forEach((block,index)=>{
+                if(!block.used && block.size >= process.size){
+
+                    let diff = block.size - process.size;
+
+                    if(diff < minDiff){
+                        minDiff = diff;
+                        selectedIndex = index;
+                    }
+
                 }
-            }
-        });
+            });
 
-        if(bestIndex !== -1){
-            memoryBlocks[bestIndex].used = true;
-            memoryBlocks[bestIndex].process = process;
+        }
+
+        if(algorithm === "first"){
+
+            for(let i=0;i<memoryBlocks.length;i++){
+
+                let block = memoryBlocks[i];
+
+                if(!block.used && block.size >= process.size){
+                    selectedIndex = i;
+                    break;
+                }
+
+            }
+
+        }
+
+        if(selectedIndex !== -1){
+
+            memoryBlocks[selectedIndex].used = true;
+            memoryBlocks[selectedIndex].process = process;
+
             return false;
         }
 
         return true;
+
     });
 
     renderHTML();

@@ -67,6 +67,8 @@ input{
     background-color: #d0d0d0;
     color: black;
     margin: 4px 0 4px 0;
+    position: relative;
+    overflow: hidden;
 }
 
 .used{
@@ -80,8 +82,68 @@ input{
 }
 
 /* .process{
-    background:#2196f3;
+    background:#2196f3;rr
     color:white;
     padding:5px;
     margin:5px 0;
 } */
+
+/* contenedor del bloque */
+.fragment{
+    position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:6px;
+}
+
+/* TEXTO SIEMPRE ENCIMA */
+.frag-text{
+    position:relative;
+    z-index:3;
+    font-weight:bold;
+    text-align:center;
+}
+
+/* BARRA VISUAL DE FRAGMENTACIÓN */
+.memory-row.used::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:12px;
+    background:#ff5252;
+    opacity:0.8;
+    z-index:1;
+}
+
+/* botón encima también */
+.delete-btn{
+    position:relative;
+    z-index:2;
+    margin-left:6px;
+} 
+.fragment-bar{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:#ff5252;
+    opacity:0.85;
+    z-index:1;
+}
+.options-panel{
+    margin:15px auto;
+    padding:10px;
+    width:300px;
+    background:white;
+    border:2px solid #333;
+    border-radius:8px;
+}
+
+.options-panel label{
+    display:block;
+    margin:5px 0;
+    cursor:pointer;
+}
